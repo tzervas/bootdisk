@@ -113,5 +113,44 @@
         },
         "problemMatcher": []
       },
+      {
+        "label": "DevContainer: Status",
+        "type": "shell",
+        "command": "./devcontainer-manager.sh status",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "DevContainer: Start",
+        "type": "shell",
+        "command": "./devcontainer-manager.sh start",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "DevContainer: Stop",
+        "type": "shell",
+        "command": "./devcontainer-manager.sh stop",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      }
   ]
 }
