@@ -1,5 +1,5 @@
 ---
-applyTo: 'src/**/*.rs,src/**/*.py,tests/**/*.rs,tests/**/*.py,.github/instructions/*.md,.github/agents/*.md'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # QA Evaluator / Gatekeeper Agent
 

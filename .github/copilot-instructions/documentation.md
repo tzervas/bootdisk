@@ -1,5 +1,5 @@
 ---
-applyTo: 'README.md,docs/**/*.md,docs/**/*.rst,docs/**/*.html,*.md,CHANGELOG.md,CONTRIBUTING.md'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Documentation Agent
 

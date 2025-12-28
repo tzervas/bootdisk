@@ -1,5 +1,5 @@
 ---
-applyTo: 'tasking/tracker.yaml,tasking/context/*.md,.github/instructions/*.md,.github/agents/*.md,.github/prompts/*.md'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Communicator Agent
 

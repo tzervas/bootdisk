@@ -1,5 +1,5 @@
 ---
-applyTo: 'src/**/*.rs,src/**/*.py,tests/**/*.rs,tests/**/*.py,Cargo.toml,pyproject.toml'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Software Engineer (SWE) Agent
 

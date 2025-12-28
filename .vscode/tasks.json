@@ -4,7 +4,8 @@
     {
       "label": "Test DevContainer",
       "type": "shell",
-      "command": "./.devcontainer/test-devcontainer.sh",
+      "command": "./scripts/devcontainer-manager.sh",
+      "args": ["status"],
       "group": {
         "kind": "test",
         "isDefault": true
@@ -22,7 +23,8 @@
     {
       "label": "Test DevContainer (Interactive)",
       "type": "shell",
-      "command": "./.devcontainer/test-devcontainer.sh interactive",
+      "command": "./scripts/devcontainer-manager.sh",
+      "args": ["start"],
       "group": "test",
       "presentation": {
         "echo": true,

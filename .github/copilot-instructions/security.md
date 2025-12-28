@@ -1,5 +1,5 @@
 ---
-applyTo: 'src/**/*.rs,src/**/*.py,.env,.env.example,.github/agents/SECRETS.md'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Security Agent
 

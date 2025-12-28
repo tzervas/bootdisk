@@ -1,5 +1,5 @@
 ---
-applyTo: '.devcontainer/Dockerfile,.devcontainer/devcontainer.json,.github/workflows/*.yml,docker-compose.yml'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh,Dockerfile}'
 ---
 # DevOps Agent
 

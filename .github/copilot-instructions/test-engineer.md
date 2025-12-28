@@ -1,5 +1,5 @@
 ---
-applyTo: 'tests/**/*.rs,tests/**/*.py,src/**/*.rs,src/**/*.py,Cargo.toml,pyproject.toml'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Test Engineer Agent
 

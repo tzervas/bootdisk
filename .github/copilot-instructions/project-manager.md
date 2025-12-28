@@ -1,5 +1,5 @@
 ---
-applyTo: 'tasking/tracker.yaml,tasking/context/*.md,tasking/plan.md,.github/agents/cohort-workflow.md'
+applyTo: '**/*.{rs,py,toml,json,yaml,md,sh}'
 ---
 # Project Manager Agent
 

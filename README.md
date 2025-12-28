@@ -24,11 +24,21 @@ Bootdisk generates and manages workstation configurations for gaming and inferen
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+pip install -e .
 
 # Run bootdisk
 python main.py
 ```
+
+## Documentation
+
+📚 **[Full Documentation](docs/)** - Comprehensive guides and API reference
+
+- **[Installation Guide](docs/getting-started/installation.md)** - Get started quickly
+- **[User Guide](docs/user-guide/)** - Configuration and usage
+- **[Developer Guide](docs/developer/)** - Architecture and contributing
+- **[Agent Documentation](docs/agents/)** - AI-assisted development
+- **[DevContainer Guide](docs/devcontainer/)** - Containerized development
 
 ## Development Environment
 
@@ -47,13 +57,13 @@ The included devcontainer provides:
 #### Automated Testing
 ```bash
 # Run validation (happens automatically on container creation)
-./.devcontainer/test-devcontainer.sh
+./scripts/devcontainer-manager.sh status
 ```
 
 #### Interactive Testing
 ```bash
 # Run interactive validation with shell access
-./.devcontainer/test-devcontainer.sh interactive
+./scripts/devcontainer-manager.sh start
 ```
 
 #### VS Code Tasks
