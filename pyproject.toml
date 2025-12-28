@@ -1,0 +1,14 @@
+[project]
+name = "bootdisk"
+version = "0.1.0"
+description = "Customized Debian workstation setup for gaming/inference workloads"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dev-mem",
+    "agentic-dev-boilerplate",
+]
+
+[tool.uv.sources]
+dev-mem = { path = "../dev-mem" }
+agentic-dev-boilerplate = { path = "../agentic-dev-boilerplate" }

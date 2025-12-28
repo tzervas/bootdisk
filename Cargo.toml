@@ -1,0 +1,21 @@
+[package]
+name = "bootdisk"
+version = "0.1.0"
+edition = "2021"
+description = "Customized Debian workstation setup for gaming/inference workloads"
+license = "MIT"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+anyhow = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+tempfile = "3.0"
+chrono = "0.4"
+uuid = { version = "1.0", features = ["v4"] }
+zstd = "0.13"
+# btrfs = "0.1"  # Note: This crate may not exist; use system calls instead
+
+[dev-dependencies]
+tokio-test = "0.4"

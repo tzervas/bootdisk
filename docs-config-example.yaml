@@ -1,0 +1,394 @@
+# Bootdisk Documentation Configuration
+
+This configuration file demonstrates how to set up comprehensive automated documentation generation for the bootdisk project using the Documentation Agent and sister projects.
+
+## Overview
+
+The documentation system generates:
+- Visual README with screenshots
+- Comprehensive API documentation
+- Interactive documentation site
+- Automated screenshot generation
+- Multi-format documentation output
+
+## Configuration Structure
+
+```yaml
+# docs-config.yaml
+documentation:
+  project:
+    name: "Bootdisk"
+    description: "Automated Debian workstation USB creation"
+    version: "1.0.0"
+    repository: "https://github.com/agentic/bootdisk"
+    author: "Documentation Agent"
+    license: "MIT"
+
+  components:
+    # Screenshot automation
+    docsnap:
+      config: "docs/screenshots.yaml"
+      output: "docs/assets/screenshots/"
+      formats: ["png", "webp"]
+      quality: 90
+
+    # General documentation generation
+    docugen:
+      source:
+        - type: "rust"
+          path: "src/"
+        - type: "python"
+          path: "scripts/"
+        - type: "yaml"
+          path: "bootdisk_schema.yaml"
+      templates: "docs/templates/"
+      output: "docs/generated/"
+      formats: ["markdown", "html"]
+
+    # API documentation
+    apidocgen:
+      frameworks:
+        - type: "rust"
+          source: "src/"
+          output: "docs/api/rust/"
+        - type: "python"
+          app: "scripts/main.py"
+          output: "docs/api/python/"
+      interactive: true
+      sdk_generation: true
+
+    # Documentation site
+    docsite:
+      framework: "mkdocs"
+      config: "mkdocs.yaml"
+      theme: "material"
+      features:
+        - search
+        - versioning
+        - dark_mode
+      deployment:
+        target: "github-pages"
+        cname: "docs.bootdisk.dev"
+
+  automation:
+    triggers:
+      - on_push: true
+      - on_pull_request: true
+      - on_release: true
+      - scheduled: "0 2 * * *"  # Daily at 2 AM
+    quality_checks:
+      - link_validation: true
+      - image_optimization: true
+      - accessibility_check: true
+      - seo_validation: true
+
+  content:
+    sections:
+      - name: "Getting Started"
+        type: "tutorial"
+        screenshots: true
+        interactive: true
+      - name: "Configuration"
+        type: "reference"
+        source: "bootdisk_schema.yaml"
+        screenshots: true
+      - name: "API Reference"
+        type: "api"
+        frameworks: ["rust", "python"]
+        interactive: true
+      - name: "Contributing"
+        type: "guide"
+        templates: ["contributing.md.j2"]
+```
+
+## Screenshot Configuration
+
+```yaml
+# docs/screenshots.yaml
+screenshots:
+  # Installation screenshots
+  - name: "install-step-1"
+    type: "terminal"
+    command: "cargo install bootdisk"
+    theme: "dark"
+    title: "Installation Command"
+
+  - name: "install-step-2"
+    type: "web"
+    url: "http://localhost:3000"
+    viewport: { width: 1200, height: 800 }
+    wait_for: ".setup-complete"
+    annotations:
+      - type: "arrow"
+        position: { x: 600, y: 400 }
+        text: "Setup Complete!"
+
+  # Configuration screenshots
+  - name: "config-gnome"
+    type: "file"
+    path: "examples/gnome-config.yaml"
+    syntax_highlight: "yaml"
+    title: "GNOME Desktop Configuration"
+
+  - name: "config-btrfs"
+    type: "diagram"
+    source: "docs/diagrams/btrfs-layout.mmd"
+    title: "BTRFS Storage Layout"
+
+  # Usage examples
+  - name: "usage-basic"
+    type: "terminal"
+    command: "bootdisk generate --config config.yaml"
+    theme: "light"
+    title: "Basic Usage"
+
+  - name: "usage-advanced"
+    type: "web"
+    url: "http://localhost:3000/advanced"
+    viewport: { width: 1400, height: 900 }
+    title: "Advanced Configuration UI"
+```
+
+## Documentation Templates
+
+### README Template
+```jinja2
+<!-- docs/templates/README.md.j2 -->
+# {{ project.name }}
+
+{{ project.description }}
+
+[![Version](https://img.shields.io/badge/version-{{ project.version }}-blue.svg)]({{ project.repository }})
+[![License](https://img.shields.io/badge/license-{{ project.license }}-green.svg)]({{ project.repository }}/blob/main/LICENSE)
+
+## Features
+
+{% for feature in features %}
+- **{{ feature.name }}**: {{ feature.description }}
+{% endfor %}
+
+## Quick Start
+
+![Installation](assets/screenshots/install-step-1.png)
+
+```bash
+# Install bootdisk
+cargo install bootdisk
+
+# Generate your first ISO
+bootdisk generate --config config.yaml
+```
+
+## Screenshots
+
+### Installation Process
+![Step 1](assets/screenshots/install-step-1.png)
+![Step 2](assets/screenshots/install-step-2.png)
+
+### Configuration Examples
+![GNOME Config](assets/screenshots/config-gnome.png)
+![BTRFS Layout](assets/screenshots/config-btrfs.png)
+
+## Documentation
+
+- [📚 Full Documentation](https://docs.{{ project.name | lower }}.dev)
+- [🚀 Getting Started](https://docs.{{ project.name | lower }}.dev/getting-started/)
+- [⚙️ Configuration](https://docs.{{ project.name | lower }}.dev/configuration/)
+- [🔧 API Reference](https://docs.{{ project.name | lower }}.dev/api/)
+
+## Contributing
+
+{{ contributing_content }}
+
+## License
+
+{{ project.license }} - see [LICENSE](LICENSE) file for details.
+```
+
+## MkDocs Configuration
+
+```yaml
+# mkdocs.yaml
+site_name: "Bootdisk Documentation"
+site_description: "Automated Debian workstation USB creation"
+site_author: "Documentation Agent"
+site_url: "https://docs.bootdisk.dev"
+
+repo_url: "https://github.com/agentic/bootdisk"
+repo_name: "agentic/bootdisk"
+edit_uri: "edit/main/docs/"
+
+theme:
+  name: "material"
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - content.code.select
+    - content.footnote.tooltips
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - git-revision-date-localized
+  - git-committers:
+      repository: agentic/bootdisk
+      branch: main
+  - docsnap:
+      config: screenshots.yaml
+      output: assets/screenshots/
+  - macros
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/agentic/bootdisk
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/agentic/bootdisk
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+      - Requirements: getting-started/requirements.md
+  - Configuration:
+      - Overview: configuration/overview.md
+      - Desktop Environments: configuration/desktops.md
+      - Storage Layout: configuration/storage.md
+      - Security: configuration/security.md
+  - API Reference:
+      - Rust API: api/rust/
+      - Python Scripts: api/python/
+  - Contributing:
+      - Development: contributing/development.md
+      - Documentation: contributing/documentation.md
+      - Testing: contributing/testing.md
+  - About:
+      - Changelog: about/changelog.md
+      - Roadmap: about/roadmap.md
+      - License: about/license.md
+```
+
+## CI/CD Integration
+
+```yaml
+# .github/workflows/docs.yml
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'src/**', '**.md', 'mkdocs.yml']
+  pull_request:
+    branches: [main]
+    paths: ['docs/**', 'src/**', '**.md', 'mkdocs.yml']
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM for screenshot updates
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Tools
+        run: |
+          pip install docsnap docugen apidocgen docsite mkdocs-material
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Generate Screenshots
+        run: docsnap generate docs/screenshots.yaml
+
+      - name: Generate Documentation
+        run: docugen generate docs/docugen.yaml
+
+      - name: Generate API Docs
+        run: |
+          apidocgen rust --source src/ --output docs/api/rust/
+          apidocgen python --app scripts/main.py --output docs/api/python/
+
+      - name: Build Documentation Site
+        run: docsite build
+
+      - name: Check Links
+        run: |
+          pip install linkchecker
+          linkchecker --config docs/linkcheckerrc build/
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: docs.bootdisk.dev
+```
+
+## Quality Assurance
+
+### Automated Checks
+- **Link Validation**: Comprehensive link checking across all documentation
+- **Image Optimization**: Automatic image compression and format optimization
+- **Accessibility**: WCAG compliance checking for web documentation
+- **SEO Validation**: Meta tag and structured data validation
+
+### Manual Review Process
+1. **Automated Generation**: Documentation Agent generates all content
+2. **Screenshot Review**: QA validates visual accuracy and clarity
+3. **Content Review**: Technical reviewers validate accuracy
+4. **User Testing**: End users test documentation usability
+
+## Performance Optimization
+
+### Build Optimization
+- **Incremental Builds**: Only rebuild changed content
+- **Parallel Processing**: Concurrent generation of different content types
+- **Caching**: Cache dependencies and generated assets
+- **CDN**: Optimized asset delivery through CDN
+
+### Content Optimization
+- **Image Optimization**: WebP format with responsive images
+- **Lazy Loading**: Progressive image loading
+- **Search Optimization**: Optimized for search engines
+- **Mobile Optimization**: Responsive design for all devices
+
+This configuration provides a complete automated documentation system that generates professional, comprehensive, and visually appealing documentation for the bootdisk project.

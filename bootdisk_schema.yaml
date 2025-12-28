@@ -1,0 +1,144 @@
+project: bootdisk-workstation
+version: "1.0.0"
+description: "Customized Debian workstation setup for gaming/inference workloads with GPU serving"
+
+languages:
+  - shell
+  - python
+  - rust
+
+frameworks:
+  - debian
+  - nala
+  - systemd
+  - nvidia
+  - docker
+  - gnome
+
+agents:
+  - role: system_admin
+    enabled: true
+    capabilities:
+      - debian_installation
+      - package_management
+      - system_configuration
+      - hardware_setup
+    model: gpt-4
+
+  - role: hardware_specialist
+    enabled: true
+    capabilities:
+      - gpu_configuration
+      - driver_installation
+      - bios_optimization
+      - performance_tuning
+    model: gpt-4
+
+  - role: network_engineer
+    enabled: true
+    capabilities:
+      - pxe_boot_setup
+      - lan_configuration
+      - gpu_sharing
+      - firewall_setup
+    model: gpt-3.5-turbo
+
+  - role: devops_specialist
+    enabled: true
+    capabilities:
+      - container_orchestration
+      - kubernetes_setup
+      - storage_management
+      - backup_configuration
+    model: gpt-4
+
+  - role: security_engineer
+    enabled: true
+    capabilities:
+      - sandboxing
+      - access_control
+      - network_security
+      - data_protection
+    model: gpt-3.5-turbo
+
+workflows:
+  - name: workstation_setup
+    description: "Complete workstation installation and configuration"
+    stages:
+      - pxe_preparation
+      - base_installation
+      - hardware_configuration
+      - software_installation
+      - network_setup
+      - gpu_serving_configuration
+      - development_environment
+      - security_hardening
+      - testing_validation
+
+  - name: workload_switching
+    description: "Switch between gaming and inference modes"
+    stages:
+      - backup_current_config
+      - switch_drivers
+      - restart_services
+      - validate_performance
+
+quality_gates:
+  test_coverage: 70
+  linting: true
+  security_scanning: true
+
+hardware_spec:
+  motherboard: "Asus Tuf"
+  bios_version: "1658 X64"
+  bios_date: "5/22/2024"
+  cpu: "Intel 14700k"
+  gpu: "NVIDIA RTX 5080"
+  ram: "48GB DDR5"
+  storage: "2TB Kingston SNV2S2000G NVME SSD"
+
+debian_config:
+  version: "13"
+  codename: "triage"
+  package_manager: "nala"
+  mirrors:
+    - protocol: https
+      count: 10-20
+      options: ["--https-only", "--non-free", "--sources"]
+  kernel: "latest"
+  init_system: "systemd"
+
+storage_layout:
+  total_disk: "2TB"
+  compression: "zstd"
+  partitions:
+    efi: "512MB"
+    boot: "100GB"  # ext4
+    root: "100GB"  # BTRFS read-only with zstd
+    user: "500GB"  # BTRFS with zstd
+    development: "800GB"  # BTRFS with zstd
+    swap: "64GB"  # For hibernation support
+    temp: "remaining"
+
+network_config:
+  lan_inference: true
+  gpu_sharing: true
+  firewall: "ufw"
+  services:
+    - ssh
+    - docker
+    - kubernetes
+    - gpu_inference_api
+
+security_config:
+  sandboxing: "firejail"
+  root_readonly: true
+  user_isolation: true
+  backup_strategy: "borgmatic"
+
+development_config:
+  containers: ["docker", "podman"]
+  kubernetes: "k3s"  # Smallest k8s
+  vms: ["qemu", "libvirt"]
+  gpu_passthrough: true
+  lan_gpu_serving: true
