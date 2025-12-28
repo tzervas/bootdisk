@@ -10,10 +10,14 @@ import sys
 from pathlib import Path
 from dev_mem import TmpManager, TmpConfig
 from agentic_dev_boilerplate import BoilerplateGenerator
+from bootdisk_logging import configure_logging, get_logger
 
 def main():
-    print("🚀 Bootdisk - Debian Workstation Setup Automation")
-    print("=" * 50)
+    configure_logging()
+    logger = get_logger()
+
+    logger.info("🚀 Bootdisk - Debian Workstation Setup Automation")
+    logger.info("=" * 50)
 
     # Configure memory management for bootdisk operations
     tmp_config = TmpConfig(
@@ -26,37 +30,43 @@ def main():
     )
 
     tmp_manager = TmpManager("bootdisk", tmp_config)
-    print(f"📁 Temporary directory manager initialized at: {tmp_manager.config.base_tmp_dir}")
+    logger.info(
+        "📁 Temporary directory manager initialized",
+        extra={"event": {"base_tmp_dir": str(tmp_manager.config.base_tmp_dir)}},
+    )
 
     # Load bootdisk schema
     schema_path = Path(__file__).parent / "bootdisk_schema.yaml"
     if not schema_path.exists():
-        print(f"❌ Bootdisk schema not found at: {schema_path}")
+        logger.error(
+            "❌ Bootdisk schema not found",
+            extra={"event": {"schema_path": str(schema_path)}},
+        )
         sys.exit(1)
 
-    print(f"📋 Loading schema from: {schema_path}")
+    logger.info("📋 Loading schema", extra={"event": {"schema_path": str(schema_path)}})
 
     # Generate workstation setup boilerplate
     try:
-        generator = BoilerplateGenerator(str(schema_path))
-        print("✅ Schema loaded successfully")
+        BoilerplateGenerator(str(schema_path))
+        logger.info("✅ Schema loaded successfully")
 
         # Create temporary directory for generation
         temp_dir = tmp_manager.get_task_dir("workstation_setup")
-        print(f"📂 Created temp directory: {temp_dir}")
+        logger.info("📂 Created temp directory", extra={"event": {"temp_dir": str(temp_dir)}})
 
         # TODO: Generate the actual workstation setup files
         # This will be implemented in the next phase
 
-        print("🎯 Bootdisk setup generation ready!")
-        print("Next steps:")
-        print("  - Implement PXE boot configuration")
-        print("  - Add NVIDIA GPU driver setup")
-        print("  - Configure Docker/Kubernetes for inference")
-        print("  - Generate Debian installation scripts")
+        logger.info("🎯 Bootdisk setup generation ready!")
+        logger.info("Next steps:")
+        logger.info("  - Implement PXE boot configuration")
+        logger.info("  - Add NVIDIA GPU driver setup")
+        logger.info("  - Configure Docker/Kubernetes for inference")
+        logger.info("  - Generate Debian installation scripts")
 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        logger.exception("❌ Error", extra={"event": {"error": str(e)}})
         sys.exit(1)
 
 if __name__ == "__main__":

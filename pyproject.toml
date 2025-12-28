@@ -9,6 +9,24 @@ dependencies = [
     "agentic-dev-boilerplate",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.8.0",
+]
+
 [tool.uv.sources]
 dev-mem = { path = "../dev-mem" }
 agentic-dev-boilerplate = { path = "../agentic-dev-boilerplate" }
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
