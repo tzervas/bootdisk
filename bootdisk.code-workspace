@@ -1,0 +1,189 @@
+{
+  "folders": [
+    {
+      "name": "Bootdisk",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "/opt/venv/bin/python",
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    },
+    "git.autofetch": true,
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.black-formatter",
+      "ms-python.isort",
+      "ms-python.pylint",
+      "rust-lang.rust-analyzer",
+      "ms-vscode.vscode-json",
+      "ms-vscode.vscode-yaml",
+      "GitHub.copilot",
+      "GitHub.copilot-chat",
+      "ms-vscode-remote.remote-containers",
+      "ms-vscode.vscode-docker",
+      "redhat.vscode-yaml",
+      "ms-vscode.makefile-tools",
+      "ms-vscode.vscode-markdown",
+      "ms-vscode.hexeditor",
+      "hbenl.vscode-test-explorer",
+      "ms-vscode.test-adapter-converter"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Bootdisk Main",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/main.py",
+        "console": "integratedTerminal",
+        "justMyCode": true,
+        "python": "/opt/venv/bin/python"
+      },
+      {
+        "name": "Python: Current File",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "justMyCode": true,
+        "python": "/opt/venv/bin/python"
+      },
+      {
+        "name": "Python: Debug Tests",
+        "type": "python",
+        "request": "launch",
+        "module": "pytest",
+        "args": ["-v"],
+        "console": "integratedTerminal",
+        "justMyCode": true,
+        "python": "/opt/venv/bin/python"
+      },
+      {
+        "name": "Rust: Debug",
+        "type": "lldb",
+        "request": "launch",
+        "program": "${workspaceFolder}/target/debug/bootdisk",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "preLaunchTask": "rust: cargo build"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Test DevContainer",
+        "type": "shell",
+        "command": "./.devcontainer/test-devcontainer.sh",
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Test DevContainer (Interactive)",
+        "type": "shell",
+        "command": "./.devcontainer/test-devcontainer.sh interactive",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Validate Python Environment",
+        "type": "shell",
+        "command": "/opt/venv/bin/python --version && /opt/venv/bin/python -c 'import langchain, ollama, torch; print(\"✅ All ML packages imported successfully\")'",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Validate Rust Environment",
+        "type": "shell",
+        "command": "rustc --version && cargo --version && echo '✅ Rust toolchain ready'",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Start Ollama Service",
+        "type": "shell",
+        "command": "ollama serve",
+        "group": "build",
+        "isBackground": true,
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Check Ollama Models",
+        "type": "shell",
+        "command": "ollama list",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Test aider-chat",
+        "type": "shell",
+        "command": "aider --help | head -10",
+        "group": "test",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      }
+    ]
+  }
+}

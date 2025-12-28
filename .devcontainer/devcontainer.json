@@ -57,8 +57,7 @@
   "remoteUser": "vscode",
   "mounts": [
     "source=${localWorkspaceFolder}/.git,target=/workspaces/bootdisk/.git,type=bind,consistency=cached"
-  ],
-  "features": {
+  ],  "postCreateCommand": "./.devcontainer/test-devcontainer.sh",  "features": {
     "ghcr.io/devcontainers/features/rust:1": {
       "version": "latest"
     },
