@@ -27,10 +27,10 @@ RUN pip install --upgrade pip && \
 # Install Ollama for self-hosted models
 RUN curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull lightweight CPU-optimized models for coding
-RUN ollama pull codellama:7b-code-q4_0 && \
-    ollama pull starcoder:3b && \
-    ollama pull deepseek-coder:6.7b
+# Note: Model pulling is done at runtime to avoid build timeouts
+# RUN ollama pull codellama:7b-code-q4_0 && \
+#     ollama pull starcoder:3b && \
+#     ollama pull deepseek-coder:6.7b
 
 # Install aider-chat for CLI agentic development
 RUN pip install aider-chat

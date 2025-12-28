@@ -19,24 +19,10 @@
         "redhat.vscode-yaml",
         "ms-vscode.makefile-tools",
         "ms-vscode.vscode-markdown",
-        "ms-vscode.hexeditor",
-        "ms-vscode.vscode-json",
-        "ms-vscode.vscode-yaml",
-        "ms-vscode.vscode-typescript-next",
-        "ms-python.python",
-        "ms-python.black-formatter",
-        "ms-python.isort",
-        "GitHub.copilot",
-        "GitHub.copilot-chat",
-        "ms-vscode-remote.remote-containers",
-        "ms-vscode.vscode-docker",
-        "redhat.vscode-yaml",
-        "ms-vscode.makefile-tools",
-        "ms-vscode.vscode-markdown",
         "ms-vscode.hexeditor"
       ],
       "settings": {
-        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.checkOnSave.command": "check",
         "python.defaultInterpreterPath": "/opt/venv/bin/python",
         "python.formatting.provider": "black",
         "python.linting.enabled": true,
@@ -53,18 +39,15 @@
     }
   },
   "forwardPorts": [3000, 8000, 8080],
-  "postCreateCommand": "ollama serve & sleep 5 && cargo check && pip install -e . && python agents/langchain_agents.py",
+  "postCreateCommand": "cargo check && pip install -e .",
   "remoteUser": "vscode",
   "mounts": [
     "source=${localWorkspaceFolder}/.git,target=/workspaces/bootdisk/.git,type=bind,consistency=cached"
-  ],  "postCreateCommand": "./.devcontainer/test-devcontainer.sh",  "features": {
+  ],  "features": {
     "ghcr.io/devcontainers/features/rust:1": {
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/python:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/docker-in-docker:1": {
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {
