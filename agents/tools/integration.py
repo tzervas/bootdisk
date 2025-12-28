@@ -63,7 +63,83 @@ class ToolsIntegration:
         success, _, _ = self.run_py_devtools("--help")
         tools_status["py-devtools"] = success
 
+        # Check Rust toolchain
+        try:
+            result = subprocess.run(["cargo", "--version"], capture_output=True, text=True)
+            tools_status["rust_toolchain"] = result.returncode == 0
+        except FileNotFoundError:
+            tools_status["rust_toolchain"] = False
+
+        # Check Python environment
+        try:
+            result = subprocess.run([sys.executable, "--version"], capture_output=True, text=True)
+            tools_status["python_environment"] = result.returncode == 0
+        except FileNotFoundError:
+            tools_status["python_environment"] = False
+
         return tools_status
+
+    def run_cargo_command(self, command: str, *args, cwd: Optional[str] = None):
+        """Run cargo commands for Rust development."""
+        try:
+            cmd = ["cargo", command] + list(args)
+            working_dir = cwd or self.project_root
+            result = subprocess.run(cmd, cwd=working_dir, capture_output=True, text=True)
+            return result.returncode == 0, result.stdout, result.stderr
+        except FileNotFoundError:
+            return False, "", "Cargo not found. Install Rust toolchain."
+
+    def run_uv_command(self, command: str, *args, cwd: Optional[str] = None):
+        """Run uv commands for Python package management."""
+        try:
+            cmd = ["uv", command] + list(args)
+            working_dir = cwd or self.project_root
+            result = subprocess.run(cmd, cwd=working_dir, capture_output=True, text=True)
+            return result.returncode == 0, result.stdout, result.stderr
+        except FileNotFoundError:
+            return False, "", "uv not found. Install uv package manager."
+
+    def check_devcontainer_status(self):
+        """Check if devcontainer is running and get its status."""
+        try:
+            # Check if container exists and is running
+            result = subprocess.run(
+                ["docker", "ps", "--filter", f"name={self.project_root.name}", "--format", "{{.Status}}"],
+                capture_output=True, text=True
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return True, result.stdout.strip(), ""
+            else:
+                return False, "", "DevContainer not running"
+        except FileNotFoundError:
+            return False, "", "Docker not found"
+
+    def get_system_resources(self):
+        """Get current system resource usage."""
+        try:
+            # Get memory info
+            with open("/proc/meminfo", "r") as f:
+                mem_info = f.read()
+
+            total_mem = None
+            available_mem = None
+            for line in mem_info.split('\n'):
+                if line.startswith('MemTotal:'):
+                    total_mem = int(line.split()[1]) // 1024  # MB
+                elif line.startswith('MemAvailable:'):
+                    available_mem = int(line.split()[1]) // 1024  # MB
+
+            # Get CPU cores
+            cpu_cores = len([line for line in open("/proc/cpuinfo") if line.startswith("processor")])
+
+            return {
+                "memory_total_mb": total_mem,
+                "memory_available_mb": available_mem,
+                "cpu_cores": cpu_cores,
+                "memory_usage_percent": ((total_mem - available_mem) / total_mem * 100) if total_mem else 0
+            }
+        except Exception as e:
+            return {"error": str(e)}
 
 
 def main():
