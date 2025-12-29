@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: Set up Python environment
+      run: uv sync
+
+    - name: Build Python package
+      run: uv build
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Build Rust release
+      run: cargo build --release
+
+    - name: Create release archives
+      run: |
+        mkdir release-artifacts
+        cp target/release/bootdisk release-artifacts/
+        cp dist/*.whl release-artifacts/
+        cp dist/*.tar.gz release-artifacts/
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        files: release-artifacts/**
+        body: |
+          ## Changes
+
+          See [CHANGELOG.md](CHANGELOG.md) for details.
+
+          ## Downloads
+
+          - **Python Package**: Download the `.whl` or `.tar.gz` files
+          - **Rust Binary**: Download the `bootdisk` binary for your platform
