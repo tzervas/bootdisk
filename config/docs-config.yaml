@@ -52,7 +52,7 @@ documentation:
           source: "src/"
           output: "docs/api/rust/"
         - type: "python"
-          app: "scripts/main.py"
+          app: "python/main.py"
           output: "docs/api/python/"
       interactive: true
       sdk_generation: true
@@ -344,7 +344,7 @@ jobs:
       - name: Generate API Docs
         run: |
           apidocgen rust --source src/ --output docs/api/rust/
-          apidocgen python --app scripts/main.py --output docs/api/python/
+          apidocgen python --app python/main.py --output docs/api/python/
 
       - name: Build Documentation Site
         run: docsite build

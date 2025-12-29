@@ -27,7 +27,7 @@ Bootdisk generates and manages workstation configurations for gaming and inferen
 pip install -e .
 
 # Run bootdisk
-python main.py
+python python/main.py
 ```
 
 ## Documentation

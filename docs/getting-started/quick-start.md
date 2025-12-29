@@ -8,13 +8,13 @@ Get up and running with Bootdisk in minutes.
 
 ```bash
 # Create a basic gaming workstation configuration
-python main.py generate --template gaming-workstation --output my-workstation.yaml
+python python/main.py generate --template gaming-workstation --output my-workstation.yaml
 
 # Customize the configuration
-python main.py customize my-workstation.yaml --gpu nvidia --ram 32
+python python/main.py customize my-workstation.yaml --gpu nvidia --ram 32
 
 # Generate the bootable image
-python main.py build my-workstation.yaml --output bootdisk.iso
+python python/main.py build my-workstation.yaml --output bootdisk.iso
 ```
 
 ### Using Predefined Templates
@@ -23,10 +23,10 @@ Bootdisk comes with several predefined templates:
 
 ```bash
 # List available templates
-python main.py templates list
+python python/main.py templates list
 
 # Use a template
-python main.py generate --template ml-workstation
+python python/main.py generate --template ml-workstation
 ```
 
 ## Configuration Example
@@ -65,10 +65,10 @@ Bootdisk uses AI agents to optimize configurations:
 
 ```bash
 # Use AI assistance for configuration
-python main.py generate --ai-assisted --requirements "gaming workstation with RTX 4090"
+python python/main.py generate --ai-assisted --requirements "gaming workstation with RTX 4090"
 
 # Review agent recommendations
-python main.py review my-workstation.yaml
+python python/main.py review my-workstation.yaml
 ```
 
 ### PXE Boot Setup
@@ -77,10 +77,10 @@ For network-based installation:
 
 ```bash
 # Generate PXE configuration
-python main.py pxe-setup --config my-workstation.yaml --network 192.168.1.0/24
+python python/main.py pxe-setup --config my-workstation.yaml --network 192.168.1.0/24
 
 # Start PXE server
-python main.py pxe-serve --config my-workstation.yaml
+python python/main.py pxe-serve --config my-workstation.yaml
 ```
 
 ## Development Workflow

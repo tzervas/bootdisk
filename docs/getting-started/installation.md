@@ -56,7 +56,7 @@ python -c "import bootdisk; print('Bootdisk installed successfully')"
 cargo --version
 
 # Run basic functionality test
-python main.py --help
+python python/main.py --help
 ```
 
 ## Next Steps
