@@ -33,12 +33,18 @@ A **DevContainer** is a Docker container specifically configured for development
 ### What's Included
 - **Python 3.12** with virtual environment
 - **Rust toolchain** for performance components
+- **Node.js** for JavaScript/TypeScript tools and linting
 - **AI/ML libraries**: LangChain, PyTorch, Ollama
 - **Development tools**: Git, Docker, testing frameworks
 - **Ollama models**: Pre-loaded for coding assistance
 - **aider-chat**: AI-powered coding assistant
 
-### Resource Requirements
+### Node.js Usage
+For Node.js-based tools (like mermaid diagram linting), you can:
+- Use Node.js directly in the DevContainer (already installed)
+- Or use the Docker-based script for isolated execution: `./scripts/node-docker.sh <npm command>`
+
+This avoids installing Node.js on your host system while keeping tools available.
 - **RAM**: 8GB+ recommended
 - **Disk**: 10GB+ for models and dependencies
 - **Docker**: Must be running on host
