@@ -212,5 +212,5 @@ class AgentManager:
         await asyncio.sleep(0)
 
         self.agents.clear()
-        self.logger.info("Agent manager shutdown complete")</content>
+        self.logger.info("Agent manager shutdown complete")
 <parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/core/manager.py
