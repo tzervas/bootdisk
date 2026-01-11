@@ -20,9 +20,9 @@ ruff check --fix
 
 # Warn if any changes were applied
 if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  if ! git diff --quiet; then
+  if ! git diff --quiet HEAD; then
     echo "WARNING: ruff applied auto-fixes/formatting. Review and commit changes." >&2
-    git --no-pager diff --name-only >&2 || true
+    git --no-pager diff --name-only HEAD >&2 || true
   fi
 fi
 
