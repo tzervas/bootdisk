@@ -20,8 +20,8 @@ class HumanFormatter(logging.Formatter):
         message = record.getMessage()
 
         event: Mapping[str, Any] | None = getattr(record, "event", None)
-        if event:
-            extras = " ".join(f"{k}={event[k]!r}" for k in sorted(event.keys()))
+        if isinstance(event, Mapping) and event:
+            extras = " ".join(f"{k}={v!r}" for k, v in sorted(event.items()))
             return f"{timestamp} | {level:<8} | {message} | {extras}"
 
         return f"{timestamp} | {level:<8} | {message}"
