@@ -59,16 +59,20 @@ class SoftwareEngineerAgent(BaseAgent):
             "documentation_updated": False
         }
 
-        # Validate implementation
-        is_valid = await self.validate_output(implementation)
-
-        return {
+        # Prepare full result for validation
+        result = {
             "task_type": "feature_implementation",
-            "status": "completed" if is_valid else "needs_revision",
-            "implementation": implementation,
-            "validation_result": is_valid
+            "status": "pending_validation",
+            "implementation": implementation
         }
 
+        # Validate implementation within the full result context
+        is_valid = await self.validate_output(result)
+
+        result["status"] = "completed" if is_valid else "needs_revision"
+        result["validation_result"] = is_valid
+
+        return result
     async def _refactor_code(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Refactor existing code"""
         target_files = task.get("files", [])
