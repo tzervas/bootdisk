@@ -75,7 +75,5 @@
   "task.quickOpen.detail": true,
 
   // Workspace settings
-  "workspace trust": {
-    "enabled": true
-  }
+  "security.workspace.trust.enabled": true
 }
