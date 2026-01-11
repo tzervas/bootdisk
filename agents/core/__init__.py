@@ -22,5 +22,4 @@ __all__ = [
     "WorkflowStep",
     "WorkflowDefinition",
     "WorkflowExecution",
-]</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/core/__init__.py
+]
