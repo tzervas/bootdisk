@@ -207,8 +207,9 @@ class AgentManager:
         for agent in self.agents.values():
             agent.stop()
 
-        # Wait for agents to complete
-        await asyncio.gather(*[agent.run() for agent in self.agents.values()], return_exceptions=True)
+        # Agents are expected to terminate their run loops in response to stop().
+        # No new run loops should be started here; we simply yield control once.
+        await asyncio.sleep(0)
 
         self.agents.clear()
         self.logger.info("Agent manager shutdown complete")</content>
