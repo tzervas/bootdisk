@@ -137,7 +137,7 @@ class ToolsIntegration:
                 "memory_total_mb": total_mem,
                 "memory_available_mb": available_mem,
                 "cpu_cores": cpu_cores,
-                "memory_usage_percent": ((total_mem - available_mem) / total_mem * 100) if total_mem else 0
+                "memory_usage_percent": ((total_mem - available_mem) / total_mem * 100) if (total_mem and total_mem > 0 and available_mem is not None) else 0
             }
         except Exception as e:
             return {"error": str(e)}
