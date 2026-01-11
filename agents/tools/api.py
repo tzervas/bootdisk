@@ -361,5 +361,4 @@ async def call_github_create_issue(
 ) -> APIResponse:
     """Convenience function for creating GitHub issues"""
     async with GitHubClient(token) as client:
-        return await client.create_issue(owner, repo, title, body, labels)</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/tools/api.py
+        return await client.create_issue(owner, repo, title, body, labels)
