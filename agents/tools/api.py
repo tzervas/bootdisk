@@ -136,6 +136,9 @@ class OpenAIClient(BaseAPIClient):
     """Client for OpenAI API integration"""
 
     def __init__(self, api_key: str, base_url: str = "https://api.openai.com/v1"):
+        # Validate API key early to avoid hard-to-debug authentication errors
+        if api_key is None or not str(api_key).strip():
+            raise ValueError("OpenAI API key must be provided and cannot be empty.")
         super().__init__(base_url, api_key)
 
     async def chat_completion(
