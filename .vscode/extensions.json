@@ -46,5 +46,4 @@
     "ms-vscode.vscode-typescript",
     "ms-python.python-old"
   ]
-}</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/.vscode/extensions.json
+}
