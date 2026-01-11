@@ -181,7 +181,11 @@ def main() -> int:
     pr_url = os.environ.get("PR_URL") or ""
 
     if not pr_number_str:
-        print("Missing PR_NUMBER env var", file=sys.stderr)
+        print(
+            "PR_NUMBER environment variable not set. This script must be run within a GitHub Actions "
+            "pull_request event context, or PR_NUMBER must be provided explicitly.",
+            file=sys.stderr,
+        )
         return 2
 
     pr_number = int(pr_number_str)
