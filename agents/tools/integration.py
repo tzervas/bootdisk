@@ -130,7 +130,8 @@ class ToolsIntegration:
                     available_mem = int(line.split()[1]) // 1024  # MB
 
             # Get CPU cores
-            cpu_cores = len([line for line in open("/proc/cpuinfo") if line.startswith("processor")])
+            with open("/proc/cpuinfo", "r") as f:
+                cpu_cores = sum(1 for line in f if line.startswith("processor"))
 
             return {
                 "memory_total_mb": total_mem,
