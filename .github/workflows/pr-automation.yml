@@ -33,10 +33,9 @@ jobs:
           revert
 
     - name: Check PR size
-      uses: codacy/git-version@2.7.1
-      with:
-        release-branch: main
-        dev-branch: dev
+      uses: codelytv/pr-size-labeler@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Label PR
       uses: actions/labeler@v4
