@@ -56,7 +56,7 @@ class BaseAPIClient:
                 headers=headers,
                 timeout=aiohttp.ClientTimeout(total=self.timeout)
             )
-            self.logger.info(f"Connected to {self.base_url}")
+            self.logger.info("Connected to API")
 
     async def disconnect(self) -> None:
         """Close the API connection"""
