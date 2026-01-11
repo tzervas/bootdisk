@@ -178,5 +178,4 @@ class SoftwareEngineerAgent(BaseAgent):
             review = output.get("review", {})
             return "files_reviewed" in review and "overall_score" in review
 
-        return True</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/roles/swe.py
+        return True
