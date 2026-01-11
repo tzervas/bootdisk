@@ -75,7 +75,6 @@
   "task.quickOpen.detail": true,
 
   // Workspace settings
-  "workspace.workspaceFolder": "${workspaceFolder}",
   "workspace trust": {
     "enabled": true
   }
