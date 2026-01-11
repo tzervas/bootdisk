@@ -235,8 +235,16 @@ class GitHubClient(BaseAPIClient):
     """Client for GitHub API integration"""
 
     def __init__(self, token: str, base_url: str = "https://api.github.com"):
-        super().__init__(base_url, token)
+        # Validate token early to avoid misconfigured client instances
+        if token is None:
+            raise ValueError("GitHub token is required and cannot be None.")
 
+        # Normalize and validate that the token is not empty or whitespace-only
+        normalized_token = token.strip()
+        if not normalized_token:
+            raise ValueError("GitHub token is required and cannot be empty.")
+
+        super().__init__(base_url, normalized_token)
     async def get_repo(self, owner: str, repo: str) -> APIResponse:
         """Get repository information"""
         return await self._make_request("GET", f"/repos/{owner}/{repo}")
