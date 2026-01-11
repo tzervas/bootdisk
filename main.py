@@ -59,11 +59,13 @@ def main():
         # This will be implemented in the next phase
 
         logger.info("🎯 Bootdisk setup generation ready!")
-        logger.info("Next steps:")
-        logger.info("  - Implement PXE boot configuration")
-        logger.info("  - Add NVIDIA GPU driver setup")
-        logger.info("  - Configure Docker/Kubernetes for inference")
-        logger.info("  - Generate Debian installation scripts")
+        logger.info(
+            "Next steps:\n"
+            "  - Implement PXE boot configuration\n"
+            "  - Add NVIDIA GPU driver setup\n"
+            "  - Configure Docker/Kubernetes for inference\n"
+            "  - Generate Debian installation scripts"
+        )
 
     except Exception as e:
         logger.exception("❌ Error", extra={"event": {"error": str(e)}})
