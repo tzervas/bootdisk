@@ -104,7 +104,7 @@ class ToolsIntegration:
         try:
             # Check if container exists and is running
             result = subprocess.run(
-                ["docker", "ps", "--filter", f"name={self.project_root.name}", "--format", "{{.Status}}"],
+                ["docker", "ps", "--filter", f"name={Path(self.project_root).name}", "--format", "{{.Status}}"],
                 capture_output=True, text=True
             )
             if result.returncode == 0 and result.stdout.strip():
