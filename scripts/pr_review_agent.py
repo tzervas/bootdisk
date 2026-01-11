@@ -27,7 +27,9 @@ OPTIONAL_STRONGLY_RECOMMENDED_SECTIONS = [
     "Visualizations",
 ]
 
-CONVENTIONAL_COMMIT_RE = re.compile(r"^(feat|fix|docs|refactor|test|chore|ci|build|perf|style)(\(.+\))?: .+")
+CONVENTIONAL_COMMIT_RE = re.compile(
+    r"^(feat|fix|docs|refactor|test|chore|ci|build|perf|style)(\(.+\))?: \S.*$"
+)
 
 
 def gh_api_request(path: str, method: str = "GET", body: Optional[dict] = None) -> dict:
