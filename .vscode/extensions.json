@@ -1,0 +1,49 @@
+{
+  "recommendations": [
+    // Dev Containers
+    "ms-vscode-remote.remote-containers",
+
+    // Python
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "ms-python.flake8",
+    "ms-python.mypy-type-checker",
+    "ms-python.pylint",
+    "ms-python.isort",
+
+    // Rust
+    "rust-lang.rust-analyzer",
+    "tamasfe.even-better-toml",
+
+    // GitHub
+    "github.copilot",
+    "github.copilot-chat",
+    "github.vscode-github-actions",
+
+    // General development
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-typescript-next",
+    "esbenp.prettier-vscode",
+
+    // Testing
+    "hbenl.vscode-test-explorer",
+    "ms-vscode.test-adapter-converter",
+
+    // Docker
+    "ms-azuretools.vscode-docker",
+
+    // Markdown
+    "davidanson.vscode-markdownlint",
+
+    // Shell scripting
+    "timonwong.shellcheck",
+
+    // Task runner
+    "spmeesseman.vscode-taskexplorer"
+  ],
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript",
+    "ms-python.python-old"
+  ]
+}
