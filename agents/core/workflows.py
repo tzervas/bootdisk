@@ -350,5 +350,4 @@ def create_testing_validation_workflow() -> WorkflowDefinition:
             )
         ],
         required_capabilities=["testing", "validation", "reporting"]
-    )</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/core/workflows.py
+    )
