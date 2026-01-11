@@ -10,7 +10,6 @@
 
   // Rust settings
   "rust-analyzer.checkOnSave.command": "clippy",
-  "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
   "[rust]": {
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
     "editor.formatOnSave": true
