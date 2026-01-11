@@ -17,7 +17,7 @@ def main():
     logger = get_logger()
 
     logger.info("🚀 Bootdisk - Debian Workstation Setup Automation")
-    logger.info("=" * 50)
+    print("=" * 50, file=sys.stderr)
 
     # Configure memory management for bootdisk operations
     tmp_config = TmpConfig(
