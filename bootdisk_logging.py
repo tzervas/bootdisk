@@ -50,7 +50,7 @@ class JsonFormatter(logging.Formatter):
             payload["exception"] = {
                 "type": getattr(exc_type, "__name__", str(exc_type)),
                 "message": str(exc_value),
-                "traceback": traceback.format_exception(exc_type, exc_value, exc_tb),
+                "traceback": "".join(traceback.format_exception(exc_type, exc_value, exc_tb)),
             }
 
         return json.dumps(payload, ensure_ascii=False)
