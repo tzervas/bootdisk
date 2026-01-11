@@ -165,7 +165,7 @@ def build_review_body(verdict: str, risk: str, findings: List[Finding], metrics:
     lines.append("  A[PR Opened/Updated] --> B[Quality Gates Action]")
     lines.append("  B --> C{Metadata OK?}")
     lines.append("  C -- No --> D[Request Changes]")
-    lines.append("  C -- Yes --> E[Continue Review]\n(maintainers)")
+    lines.append("  C -- Yes --> E[Continue Review\\n(maintainers)]")
     lines.append("```")
 
     lines.append("")
