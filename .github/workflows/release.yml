@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Set up Python environment
+      run: uv sync
+
+    - name: Build Python package
+      run: uv build
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Build Rust release
+      run: cargo build --release
+
+    - name: Create release archives
+      run: |
+        mkdir release-artifacts
+        cp target/release/bootdisk release-artifacts/
+        cp dist/*.whl release-artifacts/
+        cp dist/*.tar.gz release-artifacts/
+
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          ## Changes
+
+          See [CHANGELOG.md](CHANGELOG.md) for details.
+
+          ## Downloads
+
+          - **Python Package**: Download the `.whl` or `.tar.gz` files
+          - **Rust Binary**: Download the `bootdisk` binary for your platform
+        draft: false
+        prerelease: false
+
+    - name: Upload release assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./release-artifacts/bootdisk
+        asset_name: bootdisk-linux-x64
+        asset_content_type: application/octet-stream</content>
+<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/.github/workflows/release.yml

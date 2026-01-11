@@ -1,0 +1,72 @@
+# PR Labeler Configuration
+# Automatically applies labels to pull requests based on file changes
+
+rust:
+  - changed-files:
+    - any-glob-to-any-file: ['src/**/*.rs', 'Cargo.toml', 'Cargo.lock']
+
+python:
+  - changed-files:
+    - any-glob-to-any-file: ['**/*.py', 'pyproject.toml', 'uv.lock', 'requirements.txt']
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**/*', '**/*.md', '!README.md']
+
+github:
+  - changed-files:
+    - any-glob-to-any-file: ['.github/**/*']
+
+devcontainer:
+  - changed-files:
+    - any-glob-to-any-file: ['.devcontainer/**/*']
+
+agents:
+  - changed-files:
+    - any-glob-to-any-file: ['agents/**/*']
+
+testing:
+  - changed-files:
+    - any-glob-to-any-file: ['tests/**/*', '**/*test*.py', '**/*test*.rs']
+
+ci:
+  - changed-files:
+    - any-glob-to-any-file: ['.github/workflows/**/*']
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file: ['pyproject.toml', 'Cargo.toml', 'uv.lock', 'Cargo.lock']
+
+security:
+  - changed-files:
+    - any-glob-to-any-file: ['**/*security*', '**/*auth*', '**/*encrypt*']
+
+breaking-change:
+  - title: '^breaking:'
+  - title: '^feat!:'
+  - title: '^fix!:'
+
+enhancement:
+  - title: '^feat:'
+
+bugfix:
+  - title: '^fix:'
+
+refactor:
+  - title: '^refactor:'
+
+documentation:
+  - title: '^docs:'
+
+style:
+  - title: '^style:'
+
+test:
+  - title: '^test:'
+
+chore:
+  - title: '^chore:'
+
+performance:
+  - title: '^perf:'</content>
+<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/.github/labeler.yml
