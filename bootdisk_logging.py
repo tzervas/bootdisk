@@ -88,7 +88,7 @@ def configure_logging(*, level: int | None = None) -> None:
             )
     effective_level = level
     if effective_level is None:
-        env_level = ("" if "BOOTDISK_LOG_LEVEL" not in os.environ else os.environ["BOOTDISK_LOG_LEVEL"]).upper()
+        env_level = os.environ.get("BOOTDISK_LOG_LEVEL", "").upper()
         if env_level in {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}:
             effective_level = getattr(logging, env_level)
         else:
