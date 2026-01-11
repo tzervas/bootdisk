@@ -34,5 +34,4 @@ __all__ = [
     "call_openai_chat",
     "call_ollama_generate",
     "call_github_create_issue",
-]</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/agents/tools/__init__.py
+]
