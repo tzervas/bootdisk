@@ -185,17 +185,27 @@ class WorkflowCoordinator:
         """Execute a single workflow step"""
         self.logger.info(f"Executing step: {step.name}")
 
-        # This would integrate with the AgentManager to execute the step
-        # For now, return a mock result
-        await asyncio.sleep(0.1)  # Simulate processing time
+        async def _run_step() -> Dict[str, Any]:
+            # This would integrate with the AgentManager to execute the step
+            # For now, return a mock result
+            await asyncio.sleep(0.1)  # Simulate processing time
 
-        return {
-            "step": step.name,
-            "agent": step.agent_role,
-            "result": f"Completed {step.name}",
-            "context": context
-        }
+            return {
+                "step": step.name,
+                "agent": step.agent_role,
+                "result": f"Completed {step.name}",
+                "context": context
+            }
 
+        timeout = getattr(step, "timeout", None)
+        if timeout:
+            try:
+                return await asyncio.wait_for(_run_step(), timeout=timeout)
+            except asyncio.TimeoutError:
+                self.logger.error(f"Step '{step.name}' timed out after {timeout} seconds")
+                raise
+        else:
+            return await _run_step()
     def get_workflow_status(self, workflow_id: str) -> Optional[Dict[str, Any]]:
         """Get the status of a workflow execution"""
         execution = self.executions.get(workflow_id)
