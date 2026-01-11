@@ -107,12 +107,13 @@ class WorkflowCoordinator:
         if context is None:
             context = {}
 
-        workflow_id = f"{name}_{int(asyncio.get_event_loop().time())}"
+        loop = asyncio.get_running_loop()
+        workflow_id = f"{name}_{int(loop.time())}"
 
         execution = WorkflowExecution(
             workflow_id=workflow_id,
             definition=self.workflows[name],
-            start_time=asyncio.get_event_loop().time()
+            start_time=loop.time()
         )
 
         self.executions[workflow_id] = execution
