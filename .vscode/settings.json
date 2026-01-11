@@ -54,7 +54,6 @@
   // Git settings
   "git.autofetch": true,
   "git.enableSmartCommit": true,
-  "git.confirmSync": false,
 
   // Terminal settings
   "terminal.integrated.shell.linux": "/bin/bash",
