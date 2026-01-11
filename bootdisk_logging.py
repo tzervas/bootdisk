@@ -72,6 +72,20 @@ def configure_logging(*, level: int | None = None) -> None:
     if _configured:
         return
 
+    if level is not None:
+        valid_levels = {
+            logging.NOTSET,
+            logging.DEBUG,
+            logging.INFO,
+            logging.WARNING,
+            logging.ERROR,
+            logging.CRITICAL,
+        }
+        if level not in valid_levels:
+            raise ValueError(
+                f"Invalid logging level {level!r}. Expected one of: "
+                f"{', '.join(str(v) for v in sorted(valid_levels))}."
+            )
     effective_level = level
     if effective_level is None:
         env_level = ("" if "BOOTDISK_LOG_LEVEL" not in os.environ else os.environ["BOOTDISK_LOG_LEVEL"]).upper()
