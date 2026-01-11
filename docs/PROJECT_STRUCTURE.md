@@ -172,5 +172,4 @@ bootdisk/
 - Documentation in `docs/agents/` directory
 - Integration tests in `tests/integration/`
 
-This structure ensures optimal GitHub Copilot integration, clear separation of concerns, and maintainable project organization.</content>
-<parameter name="filePath">/home/spooky/Documents/projects/bootdisk/docs/PROJECT_STRUCTURE.md
+This structure ensures optimal GitHub Copilot integration, clear separation of concerns, and maintainable project organization.
